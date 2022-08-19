@@ -3,7 +3,7 @@
 ### Relatorio de propagação da COVID-19 nos paízes da Europa e Reino Unido.
 O projeto desenvolve Pipelines e Dataflows que armazenam, ingerem, transforam e publicam os dados.
 Os processos serão feitos usando exclusivamente a núvem da Microsoft com ênfase no Data Factory. 
-Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, mortalidade, hospitalização (ICU cases), testagem e Eurostat: população por idade.
+Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, mortalidade, hospitalização (ICU cases), testagem e EUROSTAT: população por idade.
 
 ## Arquitetura
 <p align="center">
