@@ -1,5 +1,5 @@
 # AzureDataFactoryCOVID	
-## Relatorio de propagação da COVID-19 nos paízes da Europa e Reino Unido.
+## Relatorio de propagação da COVID-19 nos países da Europa e Reino Unido.
 O projeto utiliza exclusivamente a Azure, inclusive na construção do DataLake. A extração ocorre em diferentes fontes utilizando conectores e scripts Json. 
 Já a tranformação usa HDInsights, Databricks e Data Factory que também é responsável pelo carregamento e monitoramento dos pipelines e data flows.  
 Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, mortalidade, hospitalização (ICU cases), testagem e EUROSTAT: população por idade.
