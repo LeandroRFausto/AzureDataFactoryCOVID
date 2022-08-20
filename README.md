@@ -1,8 +1,7 @@
-# AzureDataFactoryCOVID
-## Playbook: Azure_DataFactory	
-### Relatorio de propagação da COVID-19 nos paízes da Europa e Reino Unido.
-O projeto desenvolve Pipelines e Dataflows que armazenam, ingerem, transforam e publicam os dados.
-Os processos serão feitos usando exclusivamente a núvem da Microsoft com ênfase no Data Factory. 
+# AzureDataFactoryCOVID	
+## Relatorio de propagação da COVID-19 nos paízes da Europa e Reino Unido.
+O projeto utiliza exclusivamente a Azure, inclusive na construção do DataLake. A extração ocorre em diferentes fontes utilizando conectores e scripts Json. 
+Já a tranformação usa HDInsights, Databricks e Data Factory que também é responsável pelo carregamento e monitoramento dos pipelines e data flows.  
 Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, mortalidade, hospitalização (ICU cases), testagem e EUROSTAT: população por idade.
 
 ## Arquitetura
@@ -28,8 +27,8 @@ Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, morta
 
 ### ETL
 Extração e ingestão
-A ingestão dos dados ocorrerá de duas formas distintas, uma utilizando um conector de http sem armazenamento e a outra salvando os dados de população diretamente no blob.    
-Será necessário construir o primeiro pipeline. A atividade copy é usada em ambos. Datasets e linked services são importantes para construção. 
+A ingestão dos dados ocorrere de duas formas distintas, uma utilizando um conector de http sem armazenamento e a outra salvando os dados de população diretamente no blob usando scripts Json.    
+Construção do primeiro pipeline. A atividade copy é usada em ambos. Datasets e linked services são necessários. 
 O pipeline usa algumas atividades: checa se o arquivo existe, verifica requisitos conhecidos como o número de colunas entre outros e usa um condicional que copia o arquivo e o deleta do armazenamento se verdadeiro ou envia um email infomando a ausencia se falso.
 Um trigger de evento, que ativa o pipeline sempre que o arquivo chega, é usado para que o fluxo seja automático. 
 
@@ -55,7 +54,7 @@ Um novo pipeline é feito para rodar o dataflow, conforme abaixo:
 </p>
 
 O próximo dataflow de admissões hospitalares gera duas saídas distintas, arquivos semanais e diários. O início da transformação acontece basicamente como na anterior,
-o Conditional Split, baseado em uma condiçao da coluna indicator distribui os dados entre dois flows, o diário e o semanal. O Join permite juntar o fluxos de dados em um , assim é possível melhorar a nomenclatura das datas.
+o Conditional Split, baseado em uma condiçao da coluna indicator distribui os dados entre dois flows, o diário e o semanal. O Join permite juntar o fluxos de dados em um, assim é possível melhorar a nomenclatura das datas.
 O Sort que ordenou a coluna "reported_year_week" de forma descendente e "country" ascendente. Como no anteior, o sink gera a saída.
 Novamente um novo pipeline é feito para rodar o dataflow, conforme abaixo:  
 
@@ -63,10 +62,10 @@ Novamente um novo pipeline é feito para rodar o dataflow, conforme abaixo:
 <img src="https://github.com/LeandroRFausto/AzureDataFactoryCOVID/blob/main/factory/df2.JPG"/>
 </p>
 
-A fim de melhor explorar as ferramentas do azure, o HDInsights será usado na próxima transformação. Para isso é necessário criar uma maneged identity. Pode ser necessário registrar o recurso. 
+A fim de melhor explorar as ferramentas do azure, o HDInsights é usado na próxima transformação. Para isso foi necessário criar uma maneged identity. Pode ser necessário registrar o recurso. 
 O cluster criado foi do tipo Hadoop.
-Os dados do arquivo teste foram transformados via script. Informações não contempladas nas tranformações anteriores como o número de testes em execução e os casos confirmados serão levados em conta.
-Três bancos de dados foram criados, um para manter as informações de pesquisa, um de dados brutos e outro de dados processados. Por fim uma tabela é criada com as transformações desejadas, a exemplo do código do país.
+Os dados do arquivo teste foram transformados via script. Informações não contempladas nas tranformações anteriores como o número de testes em execução e os casos confirmados foram levados em conta.
+Três bancos de dados foram criados, um para manter as informações de pesquisa, um de dados brutos e outro de dados processados. De forma conclusiva, uma tabela é criada com as transformações desejadas, a exemplo do código do país.
 Por fim um pipeline no Data Flow é criado usando o script hive como referência que gera o arquivo. 
 
 <p align="center">
@@ -74,8 +73,8 @@ Por fim um pipeline no Data Flow é criado usando o script hive como referência
 </p>
 
 O último tipo de tranformação se deu no Databricks. Desta vez o arquivo de população será transformado. O arquivo continha informações sobre a população total e o percentual enquadrado por faixas etárias.
-Cria-se o recurso Databricks, um cluster e um Active Directory. Neste último um app, que contém as chaves client, tenant e secret (como o projeto será excluído mantive as chaves, o que obviamente não é recomendado). 
-No workspace do Databricks, um script Python carregado fazendo as devidas montagens. A transformação em si, também em script Python mudará o ano, país, código e faixas etárias.
+Cria-se o recurso Databricks, um cluster e um Active Directory. Neste último um app, que contém as chaves client, tenant e secret.
+No workspace do Databricks, um script Python carregado fazendo as devidas montagens. A transformação em si, também em script Python que mudará o ano, país, código e faixas etárias.
 Um pipeline é construido no Dataflow com o cluster ligado para as devidas transformações.
 
 <p align="center">
