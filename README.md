@@ -1,7 +1,7 @@
 # AzureDataFactoryCOVID	
 
-O projeto utiliza exclusivamente a Azure, inclusive na construção do DataLake. A extração ocorre em diferentes fontes utilizando conectores e scripts Json. 
-Já a transformação usa HDInsights, Databricks e Data Factory que também é responsável pelo carregamento, orquestração, automatização e monitoramento dos pipelines e data flows.  
+<br />Implementa uma solução de Engenharia de dados para insights da COVID19. O projeto utiliza exclusivamente a Azure, com o Data Factory como principal componente. A extração ocorre em diferentes fontes utilizando conectores e scripts Json. 
+Já a transformação usa HDInsights, Databricks e Data Factory que também é responsável pelo carregamento, orquestração, automatização e monitoramento dos pipelines e data flows.<br />
 Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, mortalidade, hospitalização (ICU cases), testagem e EUROSTAT: população por idade.
 
 ## Arquitetura
@@ -27,10 +27,10 @@ Dados do Centro Europeu de Controle de Doenças (ECDC): casos confirmados, morta
 
 ### ETL
 #### Extração e ingestão
-A ingestão dos dados ocorre de duas formas distintas, uma utilizando um conector de http sem armazenamento e a outra salvando os dados de população diretamente no blob usando scripts Json. A atividade copy do Data Factory é usada em ambos.  
-Para a construção do primeiro pipeline é necessário construir datasets e linked services. 
-O pipeline usa algumas atividades: checa se o arquivo existe, verifica requisitos conhecidos como o número de colunas entre outros e usa um condicional que copia o arquivo e o deleta do armazenamento se verdadeiro ou envia um email informando a ausência caso falso.
-Um trigger de evento, que ativa o pipeline sempre que o arquivo chega, é usado para que o fluxo seja automático. 
+A ingestão dos dados ocorre de duas formas distintas, uma utilizando um conector de http sem armazenamento e a outra salvando os dados de população diretamente no blob usando scripts Json. A atividade copy do Data Factory é usada em ambos.
+Para a construção do primeiro pipeline é necessário construir datasets e linked services.
+<br />O pipeline usa algumas atividades: checa se o arquivo existe, verifica requisitos conhecidos como o número de colunas entre outros e usa um condicional que copia o arquivo e o deleta do armazenamento se verdadeiro ou envia um email informando a ausência caso falso.<br />
+Um trigger de evento, que ativa o pipeline sempre que o arquivo chega, é usado para que o fluxo seja automático.
 
 <p align="center">
 <img src="https://github.com/LeandroRFausto/AzureDataFactoryCOVID/blob/main/factory/pl1.JPG"/>
