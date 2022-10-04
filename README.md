@@ -36,7 +36,7 @@ Um trigger de evento, que ativa o pipeline sempre que o arquivo chega, é usado 
 <img src="https://github.com/LeandroRFausto/AzureDataFactoryCOVID/blob/main/factory/pl1.JPG"/>
 </p>
 
-O segundo pipeline também usa a atividade de cópia, porém com um conteúdo dinâmico escrito em JASON que contém a URL absoluta, relativa e o nome dos quatro arquivos que serão armazenados.
+O segundo pipeline também usa a atividade de cópia, porém com um conteúdo dinâmico escrito em JSON que contém a URL absoluta, relativa e o nome dos quatro arquivos que serão armazenados.
 Um trigger de agendamento é adicionado ao Pipeline.
 
 <p align="center">
