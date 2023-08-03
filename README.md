@@ -88,7 +88,11 @@ Os arquivos cases and deaths, hospital admissions e testing data devidamente tra
 </p>
 
 ## Orquestração, automatização e monitoramento
-Por fim é criado um pipeline pai automatizado por triggers sucessivas e sequenciais que executam os demais pipelines como orquestrador.
+Por fim é criado um pipeline pai para os arquivos de população, automatizado por triggers sucessivas e sequenciais que executam os demais pipelines como orquestrador.
+
+<p align="center">
+<img src="https://github.com/LeandroRFausto/AzureDataFactoryCOVID/blob/main/factory/pl3.JPG"/>
+</p>
 
 <p align="center">
 <img src="https://github.com/LeandroRFausto/AzureDataFactoryCOVID/blob/main/factory/orq.png"/>
